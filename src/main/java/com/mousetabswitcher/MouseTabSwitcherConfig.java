@@ -1,5 +1,6 @@
 package com.mousetabswitcher;
 
+import net.runelite.api.gameval.InterfaceID;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -10,7 +11,7 @@ public interface MouseTabSwitcherConfig extends Config
 	@ConfigItem(
 			keyName = "mouse4Tab",
 			name = "Button 4",
-			description = "Select the tab or action that Button 4 will execute.",
+			description = "Select the tab that Button 4 will switch to. Make sure RuneLite's 'Block extra mouse buttons' option is disabled.",
 			position = 1
 	)
 	default Tab mouse4Tab()
@@ -32,7 +33,7 @@ public interface MouseTabSwitcherConfig extends Config
 	@ConfigItem(
 			keyName = "mouse5Tab",
 			name = "Button 5",
-			description = "Select the tab or action that Button 5 will execute.",
+			description = "Select the tab that Button 5 will switch to. Make sure RuneLite's 'Block extra mouse buttons' option is disabled.",
 			position = 3
 	)
 	default Tab mouse5Tab()
@@ -53,18 +54,18 @@ public interface MouseTabSwitcherConfig extends Config
 
 	enum Tab
 	{
-		COMBAT("Combat Options", 10551355),
-		SKILLS("Skills", 10551356),
-		QUESTS("Quest List", 10551357),
-		INVENTORY("Inventory", 10551358),
-		EQUIPMENT("Worn Equipment", 10551359),
-		PRAYER("Prayer", 10551360),
-		MAGIC("Magic", 10551361),
-		FRIENDS("Friends List", 10551341),
-		ACCOUNT("Account Management", 10551340),
-		SETTINGS("Settings", 10551343),
-		EMOTES("Emotes", 10551344),
-		LOGOUT("Logout", 10551342);
+		COMBAT("Combat Options", InterfaceID.ToplevelOsrsStretch.STONE0),
+		SKILLS("Skills", InterfaceID.ToplevelOsrsStretch.STONE1),
+		QUESTS("Quest List", InterfaceID.ToplevelOsrsStretch.STONE2),
+		INVENTORY("Inventory", InterfaceID.ToplevelOsrsStretch.STONE3),
+		EQUIPMENT("Worn Equipment", InterfaceID.ToplevelOsrsStretch.STONE4),
+		PRAYER("Prayer", InterfaceID.ToplevelOsrsStretch.STONE5),
+		MAGIC("Magic", InterfaceID.ToplevelOsrsStretch.STONE6),
+		FRIENDS("Friends List", InterfaceID.ToplevelOsrsStretch.STONE9),
+		ACCOUNT("Account Management", InterfaceID.ToplevelOsrsStretch.STONE8),
+		SETTINGS("Settings", InterfaceID.ToplevelOsrsStretch.STONE11),
+		EMOTES("Emotes", InterfaceID.ToplevelOsrsStretch.STONE12),
+		LOGOUT("Logout", InterfaceID.ToplevelOsrsStretch.STONE10);
 
 		private final String name;
 		private final int widgetId;

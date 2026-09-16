@@ -1,16 +1,15 @@
 # Mouse Tab Switcher
 
-RuneLite plugin that allows you to switch OSRS interface tabs using Button 4 and Button 5.
+A RuneLite plugin that allows you to switch OSRS interface tabs using your mouse's Button 4 and Button 5.
 
 ## Features
 
-- Button 4 can be assigned to any supported interface tab.
-- Button 5 can be assigned to any supported interface tab.
-- Button 4 can be disabled.
-- Button 5 can be disabled.
-- Configurable tab selection.
+- Assign Button 4 to any supported OSRS interface tab.
+- Assign Button 5 to any supported OSRS interface tab.
+- Independently enable or disable Button 4 and Button 5.
+- Configurable tab assignments through the RuneLite plugin settings.
 
-## Supported tabs
+## Supported Tabs
 
 - Combat Options
 - Skills
@@ -25,10 +24,34 @@ RuneLite plugin that allows you to switch OSRS interface tabs using Button 4 and
 - Emotes
 - Logout
 
+## Setup
+
+Before using Mouse Tab Switcher, make sure RuneLite's **Block extra mouse buttons** option is disabled.
+
+1. Open the **RuneLite Settings** panel.
+2. Search for **Block extra mouse buttons**.
+3. Disable the option.
+4. Search for **Mouse Tab Switcher**.
+5. Configure the desired tab for **Button 4** and **Button 5**.
+6. Use the configured mouse buttons to switch between OSRS interface tabs.
+
+> **Important:** If **Block extra mouse buttons** is enabled, RuneLite may prevent Mouse Tab Switcher from detecting Button 4 and Button 5.
+
 ## Usage
 
 Open the RuneLite configuration panel and search for:
 
 `Mouse Tab Switcher`
 
-Configure the desired tab for Button 4 and Button 5.
+Select the desired interface tab for each mouse button.
+
+Each button can also be disabled independently if you do not want it to perform any action.
+
+## Requirements
+
+- RuneLite
+- A mouse with Button 4 and/or Button 5
+
+## License
+
+This project is licensed under the BSD 2-Clause License.
