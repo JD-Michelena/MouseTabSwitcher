@@ -52,33 +52,127 @@ public interface MouseTabSwitcherConfig extends Config
 		return false;
 	}
 
+	/**
+	 * OSRS interface tabs supported by the plugin.
+	 * Each tab has widget IDs for the supported client layouts.
+	 */
 	enum Tab
 	{
-		COMBAT("Combat Options", InterfaceID.ToplevelOsrsStretch.STONE0),
-		SKILLS("Skills", InterfaceID.ToplevelOsrsStretch.STONE1),
-		QUESTS("Quest List", InterfaceID.ToplevelOsrsStretch.STONE2),
-		INVENTORY("Inventory", InterfaceID.ToplevelOsrsStretch.STONE3),
-		EQUIPMENT("Worn Equipment", InterfaceID.ToplevelOsrsStretch.STONE4),
-		PRAYER("Prayer", InterfaceID.ToplevelOsrsStretch.STONE5),
-		MAGIC("Magic", InterfaceID.ToplevelOsrsStretch.STONE6),
-		FRIENDS("Friends List", InterfaceID.ToplevelOsrsStretch.STONE9),
-		ACCOUNT("Account Management", InterfaceID.ToplevelOsrsStretch.STONE8),
-		SETTINGS("Settings", InterfaceID.ToplevelOsrsStretch.STONE11),
-		EMOTES("Emotes", InterfaceID.ToplevelOsrsStretch.STONE12),
-		LOGOUT("Logout", InterfaceID.ToplevelOsrsStretch.STONE10);
+		COMBAT(
+				"Combat Options",
+				InterfaceID.Toplevel.STONE0,
+				InterfaceID.ToplevelOsrsStretch.STONE0,
+				InterfaceID.ToplevelPreEoc.STONE0
+		),
+
+		SKILLS(
+				"Skills",
+				InterfaceID.Toplevel.STONE1,
+				InterfaceID.ToplevelOsrsStretch.STONE1,
+				InterfaceID.ToplevelPreEoc.STONE1
+		),
+
+		QUESTS(
+				"Quest List",
+				InterfaceID.Toplevel.STONE2,
+				InterfaceID.ToplevelOsrsStretch.STONE2,
+				InterfaceID.ToplevelPreEoc.STONE2
+		),
+
+		INVENTORY(
+				"Inventory",
+				InterfaceID.Toplevel.STONE3,
+				InterfaceID.ToplevelOsrsStretch.STONE3,
+				InterfaceID.ToplevelPreEoc.STONE3
+		),
+
+		EQUIPMENT(
+				"Worn Equipment",
+				InterfaceID.Toplevel.STONE4,
+				InterfaceID.ToplevelOsrsStretch.STONE4,
+				InterfaceID.ToplevelPreEoc.STONE4
+		),
+
+		PRAYER(
+				"Prayer",
+				InterfaceID.Toplevel.STONE5,
+				InterfaceID.ToplevelOsrsStretch.STONE5,
+				InterfaceID.ToplevelPreEoc.STONE5
+		),
+
+		MAGIC(
+				"Magic",
+				InterfaceID.Toplevel.STONE6,
+				InterfaceID.ToplevelOsrsStretch.STONE6,
+				InterfaceID.ToplevelPreEoc.STONE6
+		),
+
+		FRIENDS(
+				"Friends List",
+				InterfaceID.Toplevel.STONE9,
+				InterfaceID.ToplevelOsrsStretch.STONE9,
+				InterfaceID.ToplevelPreEoc.STONE9
+		),
+
+		ACCOUNT(
+				"Account Management",
+				InterfaceID.Toplevel.STONE8,
+				InterfaceID.ToplevelOsrsStretch.STONE8,
+				InterfaceID.ToplevelPreEoc.STONE8
+		),
+
+		SETTINGS(
+				"Settings",
+				InterfaceID.Toplevel.STONE11,
+				InterfaceID.ToplevelOsrsStretch.STONE11,
+				InterfaceID.ToplevelPreEoc.STONE11
+		),
+
+		EMOTES(
+				"Emotes",
+				InterfaceID.Toplevel.STONE12,
+				InterfaceID.ToplevelOsrsStretch.STONE12,
+				InterfaceID.ToplevelPreEoc.STONE12
+		),
+
+		LOGOUT(
+				"Logout",
+				InterfaceID.Toplevel.STONE10,
+				InterfaceID.ToplevelOsrsStretch.STONE10,
+				InterfaceID.ToplevelPreEoc.STONE10
+		);
 
 		private final String name;
-		private final int widgetId;
+		private final int fixedWidgetId;
+		private final int classicResizableWidgetId;
+		private final int modernResizableWidgetId;
 
-		Tab(String name, int widgetId)
+		Tab(
+				String name,
+				int fixedWidgetId,
+				int classicResizableWidgetId,
+				int modernResizableWidgetId
+		)
 		{
 			this.name = name;
-			this.widgetId = widgetId;
+			this.fixedWidgetId = fixedWidgetId;
+			this.classicResizableWidgetId = classicResizableWidgetId;
+			this.modernResizableWidgetId = modernResizableWidgetId;
 		}
 
-		public int getWidgetId()
+		public int getFixedWidgetId()
 		{
-			return widgetId;
+			return fixedWidgetId;
+		}
+
+		public int getClassicResizableWidgetId()
+		{
+			return classicResizableWidgetId;
+		}
+
+		public int getModernResizableWidgetId()
+		{
+			return modernResizableWidgetId;
 		}
 
 		@Override

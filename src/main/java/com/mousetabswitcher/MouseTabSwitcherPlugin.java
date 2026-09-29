@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import javax.inject.Inject;
 
 import net.runelite.api.Client;
+import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
@@ -90,9 +91,47 @@ public class MouseTabSwitcherPlugin extends Plugin
 			return;
 		}
 
-		int widgetId = tab.getWidgetId();
+		int widgetId = getWidgetIdForCurrentLayout(tab);
+
+		if (widgetId == -1)
+		{
+			return;
+		}
 
 		clientThread.invokeLater(() -> executeTabAction(widgetId));
+	}
+
+    /**
+     * Gets the widget ID for the selected tab based on the current
+     * RuneLite game client layout.
+     *
+     * Each layout uses a different top-level interface, so the same
+     * OSRS tab can have a different widget ID depending on the layout.
+     *
+     * @param tab the selected tab
+     * @return the widget ID for the current layout, or -1 if the layout
+     *         is not supported
+     */
+	private int getWidgetIdForCurrentLayout(MouseTabSwitcherConfig.Tab tab)
+	{
+		int topLevelInterfaceId = client.getTopLevelInterfaceId();
+
+		if (topLevelInterfaceId == InterfaceID.TOPLEVEL)
+		{
+			return tab.getFixedWidgetId();
+		}
+
+		if (topLevelInterfaceId == InterfaceID.TOPLEVEL_OSRS_STRETCH)
+		{
+			return tab.getClassicResizableWidgetId();
+		}
+
+		if (topLevelInterfaceId == InterfaceID.TOPLEVEL_PRE_EOC)
+		{
+			return tab.getModernResizableWidgetId();
+		}
+
+		return -1;
 	}
 
 	private void executeTabAction(int widgetId)
