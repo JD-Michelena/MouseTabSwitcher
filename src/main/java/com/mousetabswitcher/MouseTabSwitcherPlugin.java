@@ -1,7 +1,9 @@
 package com.mousetabswitcher;
 
 import com.google.inject.Provides;
+import java.awt.Canvas;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.EnumMap;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -292,10 +295,37 @@ public class MouseTabSwitcherPlugin extends Plugin
 
 	private void run(TabAction action, boolean reverse)
 	{
-		if (action != null)
+		if (action == null)
+		{
+			return;
+		}
+		if (action.isKey())
+		{
+			// Key events belong on the AWT event thread, like the user's own key presses.
+			SwingUtilities.invokeLater(() -> pressKey(action));
+		}
+		else
 		{
 			clientThread.invokeLater(() -> perform(action, reverse));
 		}
+	}
+
+	/**
+	 * Works like one press of the action's key: one press, one key, the same as when the user
+	 * pushes the key on the keyboard.
+	 */
+	private void pressKey(TabAction action)
+	{
+		Canvas canvas = client.getCanvas();
+		if (canvas == null || client.getGameState() != GameState.LOGGED_IN)
+		{
+			return;
+		}
+
+		long when = System.currentTimeMillis();
+		canvas.dispatchEvent(new KeyEvent(canvas, KeyEvent.KEY_PRESSED, when, 0, action.getKeyCode(), action.getKeyChar()));
+		canvas.dispatchEvent(new KeyEvent(canvas, KeyEvent.KEY_TYPED, when, 0, KeyEvent.VK_UNDEFINED, action.getKeyChar()));
+		canvas.dispatchEvent(new KeyEvent(canvas, KeyEvent.KEY_RELEASED, when, 0, action.getKeyCode(), action.getKeyChar()));
 	}
 
 	private TabAction singleAction(int button)

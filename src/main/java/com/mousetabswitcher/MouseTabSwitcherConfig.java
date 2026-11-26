@@ -25,7 +25,7 @@ public interface MouseTabSwitcherConfig extends Config
 
 	@ConfigSection(
 		name = "Mouse buttons",
-		description = "What each mouse button does on a single press. Buttons 6-8 only work if your OS and mouse driver report them as mouse buttons.",
+		description = "What each mouse button does on a single press: open a tab, go to the next or previous tab, or work like Space or a number key (1-9). Buttons 6-8 only work if your OS and mouse driver report them as mouse buttons.",
 		position = 0
 	)
 	String buttonsSection = "buttons";

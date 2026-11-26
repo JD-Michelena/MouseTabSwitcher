@@ -10,6 +10,9 @@ A RuneLite plugin. Use your mouse buttons to switch the OSRS interface tabs.
   tabs on your screen: from left to right, then the top row before the bottom row. This works in the Fixed,
   Resizable – Classic, Resizable – Modern and bottom-line layouts. The plugin does not use tabs that the
   layout hides, for example Logout in the modern layout.
+- **Space and number keys.** A button can work like Space or a number key (1–9). One push on the button is
+  one push on the key, for example to continue a dialog or to select a dialog option. The key does the same
+  as on your keyboard: if you type in the chat, Space types a space.
 - **Double-click actions.** A button can do a different action when you push it two times quickly. You can
   set the speed (250 ms by default). If a button has a double-click action, its single action waits for
   this time. A button without a double-click action works immediately.
