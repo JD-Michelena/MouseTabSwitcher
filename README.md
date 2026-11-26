@@ -18,7 +18,8 @@ A RuneLite plugin. Use your mouse buttons to switch the OSRS interface tabs.
   opens one tab can still open these tabs.
 - **Shift reverses.** Hold Shift to make a Next or Previous button go the other direction (off by default).
 - **Keyboard keys.** You can set a key for Next and a key for Previous. Use them if your mouse software
-  changes extra side buttons into keys.
+  changes extra side buttons into keys. Do not use a key that you type in chat, because the plugin also
+  uses the key when you type.
 - **Close tab if already open.** Off by default: when the tab is already open, a button for that tab does
   not close the side panel. Turn it on to close the panel, like a click on the tab.
 

@@ -20,6 +20,8 @@ public interface MouseTabSwitcherConfig extends Config
 	String OLD_BUTTON4_DISABLED = "disableMouse4";
 	String OLD_BUTTON5_TAB = "mouse5Tab";
 	String OLD_BUTTON5_DISABLED = "disableMouse5";
+	// Set to true in each profile after the 1.0.0 settings were moved. Not shown in the panel.
+	String MIGRATED = "migratedFrom1";
 
 	@ConfigSection(
 		name = "Mouse buttons",
@@ -253,7 +255,7 @@ public interface MouseTabSwitcherConfig extends Config
 	@ConfigItem(
 		keyName = "nextTabKey",
 		name = "Next hotkey",
-		description = "Optional keyboard key for Next, e.g. a mouse side button your mouse software maps to a key",
+		description = "Optional keyboard key for Next, e.g. a mouse side button your mouse software maps to a key. Do not use a key that you type in chat.",
 		section = cycleSection,
 		position = 2
 	)
@@ -265,7 +267,7 @@ public interface MouseTabSwitcherConfig extends Config
 	@ConfigItem(
 		keyName = "previousTabKey",
 		name = "Previous hotkey",
-		description = "Optional keyboard key for Previous, e.g. a mouse side button your mouse software maps to a key",
+		description = "Optional keyboard key for Previous, e.g. a mouse side button your mouse software maps to a key. Do not use a key that you type in chat.",
 		section = cycleSection,
 		position = 3
 	)

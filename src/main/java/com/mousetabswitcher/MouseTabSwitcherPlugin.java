@@ -18,6 +18,8 @@ import net.runelite.api.gameval.VarClientID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ProfileChanged;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.input.MouseAdapter;
 import net.runelite.client.input.MouseManager;
@@ -167,19 +169,36 @@ public class MouseTabSwitcherPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
+	public void onProfileChanged(ProfileChanged event)
+	{
+		// RuneLite does not restart a plugin that is on in both profiles, so startUp does not run
+		// again. The new profile can still have 1.0.0 settings.
+		migrateOldSettings();
+	}
+
 	/**
 	 * Moves the 1.0.0 settings (one tab per side button) to the new button actions, so users
-	 * keep the tabs they chose. The old keys are removed afterwards, so this runs only once.
+	 * keep the tabs they chose. The old keys are removed afterwards, so this runs only once
+	 * per profile.
 	 */
 	private void migrateOldSettings()
 	{
+		String group = MouseTabSwitcherConfig.GROUP;
+		// After the first migration, only remove old keys. A client that still runs 1.0.0 on the
+		// same profile writes its defaults back, and these must not replace the new settings.
+		boolean done = Boolean.parseBoolean(configManager.getConfiguration(group, MouseTabSwitcherConfig.MIGRATED));
 		migrateButton(MouseTabSwitcherConfig.OLD_BUTTON4_TAB, MouseTabSwitcherConfig.OLD_BUTTON4_DISABLED,
-			"button4", TabAction.INVENTORY);
+			"button4", TabAction.INVENTORY, done);
 		migrateButton(MouseTabSwitcherConfig.OLD_BUTTON5_TAB, MouseTabSwitcherConfig.OLD_BUTTON5_DISABLED,
-			"button5", TabAction.EQUIPMENT);
+			"button5", TabAction.EQUIPMENT, done);
+		if (!done)
+		{
+			configManager.setConfiguration(group, MouseTabSwitcherConfig.MIGRATED, true);
+		}
 	}
 
-	private void migrateButton(String tabKey, String disabledKey, String newKey, TabAction oldDefault)
+	private void migrateButton(String tabKey, String disabledKey, String newKey, TabAction oldDefault, boolean done)
 	{
 		String group = MouseTabSwitcherConfig.GROUP;
 		String oldTab = configManager.getConfiguration(group, tabKey);
@@ -189,11 +208,14 @@ public class MouseTabSwitcherPlugin extends Plugin
 			return;
 		}
 
-		TabAction action = SettingsMigration.fromOld(oldTab, disabled, oldDefault);
-		configManager.setConfiguration(group, newKey, action);
+		if (!done)
+		{
+			TabAction action = SettingsMigration.fromOld(oldTab, disabled, oldDefault);
+			configManager.setConfiguration(group, newKey, action);
+			log.debug("Moved old setting {}={} (disabled={}) to {}={}", tabKey, oldTab, disabled, newKey, action);
+		}
 		configManager.unsetConfiguration(group, tabKey);
 		configManager.unsetConfiguration(group, disabledKey);
-		log.debug("Moved old setting {}={} (disabled={}) to {}={}", tabKey, oldTab, disabled, newKey, action);
 	}
 
 	/**
